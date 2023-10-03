@@ -1489,3 +1489,28 @@
                     </div>
                 </div>
             </div>
+    <script>
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        const chatlog = document.getElementById('chatlog');
+
+        chatlog.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - chatlog.getBoundingClientRect().left;
+            offsetY = e.clientY - chatlog.getBoundingClientRect().top;
+            chatlog.style.transition = 'none';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const left = e.clientX - offsetX;
+            const top = e.clientY - offsetY;
+            chatlog.style.transform = `translate(${left}px, ${top}px)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            chatlog.style.transition = 'transform 0.3s ease';
+        });
+    </script>
